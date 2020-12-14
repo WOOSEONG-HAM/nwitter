@@ -28,12 +28,12 @@ const Auth = () => {
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
+      console.log(data);
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     }
   };
   const toggleAccount = () => setNewAccount((prev) => !prev);
-
   const onSocialClick = async (event) => {
     const {
       target: { name },
@@ -47,7 +47,6 @@ const Auth = () => {
     const data = await authService.signInWithPopup(provider);
     console.log(data);
   };
-
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -67,14 +66,18 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value={newAccount ? "Create Account" : "Sign In"} />
+        <input
+          type="submit"
+          value={newAccount ? "Create Account" : "Sign In"}
+        />
+        {error}
       </form>
       <span onClick={toggleAccount}>
         {newAccount ? "Sign In" : "Create Account"}
       </span>
       <div>
         <button onClick={onSocialClick} name="google">
-            Continue with Google
+          Continue with Google
         </button>
         <button onClick={onSocialClick} name="github">
           Continue with Github
